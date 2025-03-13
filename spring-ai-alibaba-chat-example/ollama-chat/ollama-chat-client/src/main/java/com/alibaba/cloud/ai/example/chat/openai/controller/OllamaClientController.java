@@ -18,6 +18,8 @@
 package com.alibaba.cloud.ai.example.chat.openai.controller;
 
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestParam;
 import reactor.core.publisher.Flux;
 
 import org.springframework.ai.chat.client.ChatClient;
@@ -65,10 +67,18 @@ public class OllamaClientController {
 				.defaultOptions(
 						OllamaOptions.builder()
 								.withTopP(0.7)
-								.withModel("llama3")
+//								.withModel("deepseek-r1:1.5b")
 								.build()
 				)
 				.build();
+	}
+
+	@Autowired
+	private SystemChatService chatService;
+
+	@GetMapping("/ask")
+	public String ask(@RequestParam String question) {
+		return chatService.askSystemQuestion(question);
 	}
 
 	/**
