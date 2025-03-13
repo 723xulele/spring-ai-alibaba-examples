@@ -48,9 +48,6 @@ public class OllamaClientController {
 
 	private final ChatModel ollamaiChatModel;
 
-	@Resource
-	private SystemChatService chatService;
-
 	public OllamaClientController(ChatModel chatModel) {
 
 		this.ollamaiChatModel = chatModel;
@@ -77,15 +74,6 @@ public class OllamaClientController {
 				.build();
 	}
 
-
-
-	/**
-	 * 普通方法实现调用预设好的问题
-	 */
-	@GetMapping("/ordinaryWay")
-	public String ordinaryWay(@RequestParam String question) {
-		return chatService.askSystemQuestion(question);
-	}
 
 	/**
 	 * ChatClient 简单调用
