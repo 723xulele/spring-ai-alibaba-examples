@@ -17,6 +17,7 @@
 
 package com.alibaba.cloud.ai.example.chat.dashscope.controller;
 
+import com.alibaba.cloud.ai.dashscope.api.DashScopeResponseFormat;
 import com.alibaba.cloud.ai.dashscope.chat.DashScopeChatOptions;
 import jakarta.servlet.http.HttpServletResponse;
 import reactor.core.publisher.Flux;
@@ -42,6 +43,10 @@ public class DashScopeChatModelController {
 	private final ChatModel dashScopeChatModel;
 
 	public DashScopeChatModelController(ChatModel chatModel) {
+		//指定返回格式
+		DashScopeResponseFormat responseFormat = new DashScopeResponseFormat();
+		responseFormat.setType(DashScopeResponseFormat.Type.JSON_OBJECT);
+
 		this.dashScopeChatModel = chatModel;
 	}
 
@@ -81,6 +86,7 @@ public class DashScopeChatModelController {
 				.withTopP(0.7)
 				.withTopK(50)
 				.withTemperature(0.8)
+//				.withResponseFormat(responseFormat)
 				.build();
 
 		return dashScopeChatModel.call(new Prompt(DEFAULT_PROMPT, customOptions)).getResult().getOutput().getContent();
