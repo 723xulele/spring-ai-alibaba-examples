@@ -17,8 +17,9 @@
 
 package com.alibaba.cloud.ai.example.chat.openai.controller;
 
+import com.alibaba.cloud.ai.example.chat.openai.ordinaryway.SystemChatService;
+import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestParam;
 import reactor.core.publisher.Flux;
 
@@ -47,6 +48,9 @@ public class OllamaClientController {
 
 	private final ChatModel ollamaiChatModel;
 
+	@Resource
+	private SystemChatService chatService;
+
 	public OllamaClientController(ChatModel chatModel) {
 
 		this.ollamaiChatModel = chatModel;
@@ -73,11 +77,13 @@ public class OllamaClientController {
 				.build();
 	}
 
-	@Autowired
-	private SystemChatService chatService;
 
-	@GetMapping("/ask")
-	public String ask(@RequestParam String question) {
+
+	/**
+	 * 普通方法实现调用预设好的问题
+	 */
+	@GetMapping("/ordinaryWay")
+	public String ordinaryWay(@RequestParam String question) {
 		return chatService.askSystemQuestion(question);
 	}
 

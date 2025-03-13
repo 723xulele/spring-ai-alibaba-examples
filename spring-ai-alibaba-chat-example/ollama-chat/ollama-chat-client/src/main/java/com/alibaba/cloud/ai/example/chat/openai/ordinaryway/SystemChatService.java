@@ -1,4 +1,4 @@
-package com.alibaba.cloud.ai.example.chat.openai.controller;
+package com.alibaba.cloud.ai.example.chat.openai.ordinaryway;
 
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.advisor.MessageChatMemoryAdvisor;
